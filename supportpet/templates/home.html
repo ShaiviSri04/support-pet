@@ -1,0 +1,412 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home - PetComfy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            font-family: 'Press Start 2P', cursive;
+            color: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(252, 182, 159, 0.2);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-family: 'Press Start 2P', cursive;
+            color: #ad550d;
+            font-size: 1.2em;
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(173, 85, 13, 0.1);
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #8B4513;
+            text-decoration: none;
+            font-size: 0.8em;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(228, 156, 67, 0.1);
+            color: #ad550d;
+        }
+
+        .logout-btn {
+            background: linear-gradient(45deg, #e49c43, #ad550d);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(173, 85, 13, 0.2);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(173, 85, 13, 0.3);
+        }
+
+        .content-wrapper {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            color: #ad550d;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(173, 85, 13, 0.1);
+            line-height: 1.8;
+        }
+
+        .decorative-line {
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, #e49c43, #ad550d);
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        .dog-container {
+            margin: 40px auto;
+            position: relative;
+            width: 300px;
+            height: 300px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .dog {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(173, 85, 13, 0.2));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        #question {
+            font-size: 1em;
+            color: #8B4513;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        #moodForm {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(252, 182, 159, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        #user_input {
+            width: 100%;
+            padding: 15px 25px;
+            border: 2px solid #e8c4a0;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-family: 'Press Start 2P', cursive;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        #user_input:focus {
+            outline: none;
+            border-color: #e49c43;
+            box-shadow: 0 0 15px rgba(228, 156, 67, 0.2);
+            background: white;
+        }
+
+        button {
+            background: linear-gradient(45deg, #e49c43, #ad550d);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-family: 'Press Start 2P', cursive;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(173, 85, 13, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(173, 85, 13, 0.3);
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        button:hover::after {
+            left: 100%;
+        }
+
+        #response {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: none;
+            font-size: 0.8em;
+            line-height: 1.8;
+        }
+
+        #response.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 -8px 32px rgba(252, 182, 159, 0.2);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        footer h2 {
+            font-family: 'Press Start 2P', cursive;
+            color: #ad550d;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(173, 85, 13, 0.1);
+            line-height: 1.8;
+        }
+
+        footer p {
+            color: #8B4513;
+            font-size: 0.8em;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.2em;
+            }
+
+            .dog-container {
+                width: 200px;
+                height: 200px;
+            }
+
+            #question {
+                font-size: 0.8em;
+            }
+
+            #moodForm {
+                padding: 20px;
+            }
+
+            .navbar-brand {
+                font-size: 0.8em;
+            }
+
+            .nav-link {
+                font-size: 0.6em;
+            }
+
+            .logout-btn {
+                font-size: 0.6em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="navbar-brand">PetComfy</a>
+        <div class="navbar-nav">
+            <a href="{% url 'home' %}" class="nav-link active">Home</a>
+            <a href="{% url 'about' %}" class="nav-link">About</a>
+            <a href="{% url 'support' %}" class="nav-link">Support</a>
+            <a href="{% url 'chat' %}" class="nav-link">Chat</a>
+            <a href="{% url 'logout' %}" class="logout-btn">Sign Out</a>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <h1>Welcome to PetComfy</h1>
+        <div class="decorative-line"></div>
+        <div class="dog-container">
+            <img src="{% static 'images/vecteezy_brown-fluffy-cartoon-dog-with-bone-shaped-collar-tag_53734937.png' %}" alt="Support Dog" class="dog">
+        </div>
+        <p id="question">How are you feeling today?</p>
+        <form id="moodForm">
+            {% csrf_token %}
+            <input type="text" id="user_input" placeholder="Share your thoughts...">
+            <button type="submit">Get Support</button>
+        </form>
+        <div id="response"></div>
+    </div>
+
+    <footer>
+        <h2>PetComfy</h2>
+        <p>Your emotional support companion</p>
+    </footer>
+
+    <script>
+        document.getElementById('moodForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const userInput = document.getElementById('user_input').value;
+            const responseDiv = document.getElementById('response');
+            
+            try {
+                const response = await fetch('/analyze_mood/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({ user_input: userInput })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    responseDiv.innerHTML = `
+                        <div style="margin-bottom: 20px;">
+                            <strong style="color: #ad550d;">Suggestion:</strong><br>
+                            ${data.suggestion}
+                        </div>
+                        <div>
+                            <strong style="color: #ad550d;">Activity Suggestion:</strong><br>
+                            ${data.activity}
+                        </div>
+                    `;
+                    responseDiv.classList.add('active');
+                } else {
+                    responseDiv.innerHTML = 'Sorry, something went wrong. Please try again.';
+                    responseDiv.classList.add('active');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                responseDiv.innerHTML = 'Sorry, something went wrong. Please try again.';
+                responseDiv.classList.add('active');
+            }
+        });
+
+        // Function to get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        // Create floating hearts animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'fixed';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100%';
+            heart.style.opacity = '0.8';
+            heart.style.animation = 'float-up 4s ease-out forwards';
+            heart.style.pointerEvents = 'none';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+
+        // Add heart animation on button hover
+        document.querySelector('button').addEventListener('mouseover', () => {
+            createHeart();
+        });
+
+        // Add floating hearts animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float-up {
+                to {
+                    transform: translateY(-100vh) rotate(${Math.random() * 360}deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

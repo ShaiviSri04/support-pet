@@ -1,0 +1,268 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About - PetComfy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            font-family: 'Press Start 2P', cursive;
+            color: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(252, 182, 159, 0.2);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-family: 'Press Start 2P', cursive;
+            color: #ad550d;
+            font-size: 1.2em;
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(173, 85, 13, 0.1);
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #8B4513;
+            text-decoration: none;
+            font-size: 0.8em;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(228, 156, 67, 0.1);
+            color: #ad550d;
+        }
+
+        .logout-btn {
+            background: linear-gradient(45deg, #e49c43, #ad550d);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(173, 85, 13, 0.2);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(173, 85, 13, 0.3);
+        }
+
+        .content-wrapper {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            text-align: center;
+        }
+
+        .about-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(252, 182, 159, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        h1 {
+            color: #ad550d;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(173, 85, 13, 0.1);
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        h2 {
+            color: #ad550d;
+            font-size: 1.2em;
+            margin: 25px 0 15px;
+            text-shadow: 1px 1px 2px rgba(173, 85, 13, 0.1);
+        }
+
+        p {
+            font-size: 0.8em;
+            margin-bottom: 20px;
+            line-height: 2;
+        }
+
+        .decorative-line {
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, #e49c43, #ad550d);
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .contact-info a {
+            color: #ad550d;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: #e49c43;
+            text-decoration: underline;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #8B4513;
+            padding: 20px;
+            border-left: 4px solid #e49c43;
+            margin: 20px 0;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 0 12px 12px 0;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 -8px 32px rgba(252, 182, 159, 0.2);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        footer h2 {
+            color: #ad550d;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(173, 85, 13, 0.1);
+        }
+
+        footer p {
+            color: #8B4513;
+            font-size: 0.8em;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.2em;
+            }
+
+            .about-section {
+                padding: 20px;
+            }
+
+            .navbar-brand {
+                font-size: 0.8em;
+            }
+
+            .nav-link {
+                font-size: 0.6em;
+            }
+
+            .logout-btn {
+                font-size: 0.6em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="navbar-brand">PetComfy</a>
+        <div class="navbar-nav">
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+            <a href="{% url 'about' %}" class="nav-link">About</a>
+            <a href="{% url 'support' %}" class="nav-link">Support</a>
+            <a href="{% url 'logout' %}" class="logout-btn">Sign Out</a>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <h1>About PetComfy</h1>
+        <div class="decorative-line"></div>
+
+        <div class="about-section">
+            <h2>Why I Created PetComfy</h2>
+            <p>
+                I created PetComfy because I believe that everyone deserves a safe space to express their feelings and find comfort. Having experienced my own mental health journey, I understand how important it is to have someone - or something - that listens without judgment and offers support when you need it most.
+            </p>
+            
+            <div class="quote">
+                "Mental health is not a destination, but a journey. It's about how you drive, not where you're going."
+            </div>
+
+            <h2>The Importance of Mental Health</h2>
+            <p>
+                Mental health is just as important as physical health, yet it often goes overlooked or stigmatized. Through PetComfy, I want to create a gentle reminder that it's okay to not be okay, and that seeking support is a sign of strength, not weakness. Every emotion you feel is valid, and you deserve to be heard and supported.
+            </p>
+
+            <p>
+                Just like a loyal pet offers unconditional love and support, PetComfy is here to provide a comforting presence in moments when you need someone to listen. Whether you're feeling happy, sad, anxious, or just need someone to talk to, we're here for you.
+            </p>
+
+            <h2>Our Mission</h2>
+            <p>
+                PetComfy's mission is to make mental health support more accessible and less intimidating. We believe that sometimes, the first step to feeling better is simply having a safe space to express your feelings. While we're not a replacement for professional mental health care, we hope to be a supportive companion on your mental health journey.
+            </p>
+
+            <div class="contact-info">
+                <h2>Get in Touch</h2>
+                <p>
+                    I'd love to hear from you! Whether you have suggestions, questions, or just want to share your experience with PetComfy, please don't hesitate to reach out.
+                </p>
+                <p>
+                    Email: <a href="mailto:your.email@example.com">your.email@example.com</a><br>
+                    LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a><br>
+                    GitHub: <a href="https://github.com/yourusername" target="_blank">github.com/yourusername</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <h2>PetComfy</h2>
+        <p>Your emotional support companion</p>
+    </footer>
+</body>
+</html> 

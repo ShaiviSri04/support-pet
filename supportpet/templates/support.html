@@ -1,0 +1,434 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Support - PetComfy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            font-family: 'Press Start 2P', cursive;
+            color: #4a4a4a;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(252, 182, 159, 0.2);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-family: 'Press Start 2P', cursive;
+            color: #ad550d;
+            font-size: 1.2em;
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(173, 85, 13, 0.1);
+        }
+
+        .navbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #8B4513;
+            text-decoration: none;
+            font-size: 0.8em;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(228, 156, 67, 0.1);
+            color: #ad550d;
+        }
+
+        .logout-btn {
+            background: linear-gradient(45deg, #e49c43, #ad550d);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(173, 85, 13, 0.2);
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(173, 85, 13, 0.3);
+        }
+
+        .content-wrapper {
+            flex: 1;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        h1 {
+            color: #ad550d;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(173, 85, 13, 0.1);
+        }
+
+        .decorative-line {
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, #e49c43, #ad550d);
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        .video-section {
+            margin: 40px 0;
+        }
+
+        .video-section h2 {
+            color: #ad550d;
+            font-size: 1.2em;
+            margin: 25px 0 15px;
+            text-shadow: 1px 1px 2px rgba(173, 85, 13, 0.1);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(252, 182, 159, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-info {
+            padding: 15px;
+        }
+
+        .video-info h3 {
+            color: #8B4513;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .video-info p {
+            color: #666;
+            font-size: 0.7em;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 -8px 32px rgba(252, 182, 159, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        footer h2 {
+            color: #ad550d;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            color: #8B4513;
+            font-size: 0.8em;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.2em;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar-brand {
+                font-size: 0.8em;
+            }
+
+            .nav-link {
+                font-size: 0.6em;
+            }
+
+            .logout-btn {
+                font-size: 0.6em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="navbar-brand">PetComfy</a>
+        <div class="navbar-nav">
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+            <a href="{% url 'about' %}" class="nav-link">About</a>
+            <a href="{% url 'support' %}" class="nav-link">Support</a>
+            <a href="{% url 'logout' %}" class="logout-btn">Sign Out</a>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <h1>Mental Health Support Resources</h1>
+        <div class="decorative-line"></div>
+
+        <div class="video-section">
+            <h2>Meditation & Mindfulness</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/ZToicYcHIOU" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>5-Minute Meditation You Can Do Anywhere</h3>
+                        <p>A quick and effective meditation practice perfect for beginners or when you need a moment of calm.</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/inpok4MKVLM" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Mindfulness Exercise for Anxiety</h3>
+                        <p>Learn simple mindfulness techniques to help manage anxiety and stress in daily life.</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/O-6f5wQXSu8" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Breathing Exercises for Stress Relief</h3>
+                        <p>Simple breathing techniques to help you find calm and reduce stress instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-section">
+            <h2>Gentle Exercise & Movement</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/GnHTeHAZQhM" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>10-Minute Morning Yoga for Beginners</h3>
+                        <p>Start your day with gentle stretches and movements to boost your mood and energy.</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/VaoV1PrYft4" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Desk Stretches for Stress Relief</h3>
+                        <p>Simple stretches you can do at your desk to release tension and reduce stress.</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/UBMk30rjy0o" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Gentle Movement for Anxiety Relief</h3>
+                        <p>Easy-to-follow movements that help release physical tension and calm your mind.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-section">
+            <h2>Mental Health Tips & Education</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/8Su5VtKeXU8" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Understanding Anxiety: A Mental Health Guide</h3>
+                        <p>Learn about what anxiety is, how it affects us, and practical coping strategies.</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/wFUxiIjp-Nk" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Self-Care Practices for Better Mental Health</h3>
+                        <p>Discover simple but effective self-care practices to maintain good mental health.</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/WWloIAQpMcQ" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Understanding Depression and How to Cope</h3>
+                        <p>A comprehensive guide to understanding depression and effective coping mechanisms.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-section">
+            <h2>Sleep & Relaxation</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/aEqlQvczMJQ" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Calming Sleep Meditation</h3>
+                        <p>A gentle guided meditation to help you relax and prepare for restful sleep.</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/1ZYbU82GVz4" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Bedtime Relaxation Techniques</h3>
+                        <p>Learn effective techniques to wind down and prepare for a good night's sleep.</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/hvOgpzRJxJg" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Calming Nature Sounds for Sleep</h3>
+                        <p>Peaceful nature sounds to help you relax and drift off to sleep.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-section">
+            <h2>Positive Psychology & Motivation</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/1-gxPnmhlzI" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Building Self-Confidence</h3>
+                        <p>Learn practical techniques to boost your self-confidence and self-esteem.</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/g7YMaEe7XV0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Developing a Growth Mindset</h3>
+                        <p>Understanding and cultivating a growth mindset for better mental well-being.</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/R6MasOctLkY" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Daily Affirmations for Positivity</h3>
+                        <p>Powerful affirmations to start your day with a positive mindset.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-section">
+            <h2>Art & Creative Therapy</h2>
+            <div class="video-grid">
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/9NbCzbDdd-g" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Art Therapy Exercises for Stress Relief</h3>
+                        <p>Simple art exercises to express emotions and reduce stress through creativity.</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/Zasd2hUPdRY" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Mindful Drawing Meditation</h3>
+                        <p>Combine meditation with drawing for a unique mindfulness experience.</p>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/qXnmWCaCDjk" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3>Music Therapy for Anxiety Relief</h3>
+                        <p>Using music to manage anxiety and improve emotional well-being.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <h2>PetComfy</h2>
+        <p>Your emotional support companion</p>
+    </footer>
+</body>
+</html> 
